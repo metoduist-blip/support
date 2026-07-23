@@ -222,12 +222,17 @@ async function step1Enter(){
   const err=document.getElementById('login-err');
   err.textContent='';
   if(!uname){err.textContent='Enter your username.';return;}
-  const snap=await db.ref('support_agents').orderByChild('username').equalTo(uname).get();
-  if(!snap.exists()){err.textContent='Username not found.';return;}
-  pendingUsername=uname;
-  document.getElementById('login-step1').style.display='none';
-  document.getElementById('login-step2').style.display='flex';
-  document.getElementById('code-in').focus();
+  try{
+    const snap=await db.ref('support_agents/'+uname).get();
+    if(!snap.exists()){err.textContent='Username not found.';return;}
+    pendingUsername=uname;
+    document.getElementById('login-step1').style.display='none';
+    document.getElementById('login-step2').style.display='flex';
+    document.getElementById('code-in').focus();
+  }catch(e){
+    err.textContent='Connection error. Try again.';
+    console.error('step1Enter error:',e);
+  }
 }
 
 async function step2Login(){
@@ -235,26 +240,26 @@ async function step2Login(){
   const err=document.getElementById('login-err');
   err.textContent='';
   if(!code){err.textContent='Enter access code.';return;}
-  const snap=await db.ref('support_agents').orderByChild('username').equalTo(pendingUsername).get();
-  if(!snap.exists()){err.textContent='Invalid.';return;}
-  const agents=snap.val();
-  let foundKey=null,foundAgent=null;
-  for(const k in agents){
-    if(agents[k].code===code&&!agents[k].codeUsed){
-      foundKey=k;foundAgent=agents[k];break;
-    }
+  try{
+    const snap=await db.ref('support_agents/'+pendingUsername).get();
+    if(!snap.exists()){err.textContent='Username not found.';return;}
+    const agent=snap.val();
+    if(agent.code!==code){err.textContent='Invalid code.';return;}
+    if(agent.codeUsed){err.textContent='Code already used. Ask admin for a new one.';return;}
+    await db.ref('support_agents/'+pendingUsername+'/codeUsed').set(true);
+    await db.ref('support_agents/'+pendingUsername+'/lastLogin').set(Date.now());
+    agentCode=pendingUsername;
+    agentName=agent.name||agent.username||pendingUsername;
+    agentUsername=agent.username||pendingUsername;
+    sessionStart=Date.now();
+    document.getElementById('login').style.display='none';
+    document.getElementById('app').classList.add('on');
+    document.getElementById('agent-name').textContent=agentUsername;
+    loadChats();
+  }catch(e){
+    err.textContent='Connection error. Try again.';
+    console.error('step2Login error:',e);
   }
-  if(!foundAgent){err.textContent='Invalid or used code.';return;}
-  await db.ref('support_agents/'+foundKey+'/codeUsed').set(true);
-  await db.ref('support_agents/'+foundKey+'/lastLogin').set(Date.now());
-  agentCode=foundKey;
-  agentName=foundAgent.name||foundAgent.username;
-  agentUsername=foundAgent.username;
-  sessionStart=Date.now();
-  document.getElementById('login').style.display='none';
-  document.getElementById('app').classList.add('on');
-  document.getElementById('agent-name').textContent=agentUsername;
-  loadChats();
 }
 
 function switchTab(tab){
