@@ -3,91 +3,123 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>CryptoCasino — Support</title>
+<title>Support</title>
 <meta name="theme-color" content="#000000">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root{--silver:#C0C8D8;--dim:rgba(255,255,255,.5);--r:10px;--card-bg:radial-gradient(ellipse 110% 75% at 0% 0%,#0f2547 0%,transparent 55%),radial-gradient(ellipse 110% 75% at 100% 100%,#0f2547 0%,transparent 55%),#000;}
-*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --silver:#C0C8D8;
+  --dim:rgba(255,255,255,.5);
+  --r:10px;
+  --card-bg:radial-gradient(ellipse 110% 75% at 0% 0%,#0f2547 0%,transparent 55%),radial-gradient(ellipse 110% 75% at 100% 100%,#0f2547 0%,transparent 55%),#000;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;}
-body{background:#000;font-family:'Inter',sans-serif;color:#fff;min-height:100vh;display:flex;flex-direction:column;}
+body{background:#000;font-family:'Inter',sans-serif;color:#fff;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;}
 button,input,textarea{font-family:'Inter',sans-serif;}
 
-#login{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:16px;}
-.login-title{font-size:18px;font-weight:900;letter-spacing:2px;color:#fff;}
-.login-sub{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:2px;font-weight:600;}
-.login-card{background:var(--card-bg);border:1.5px solid var(--silver);border-radius:14px;padding:24px;width:100%;max-width:340px;display:flex;flex-direction:column;gap:14px;}
-.login-in{width:100%;height:46px;padding:0 14px;background:#000;border:1.5px solid var(--silver);border-radius:var(--r);color:#fff;font-size:16px;letter-spacing:4px;text-align:center;font-weight:700;outline:none;transition:.2s;}
+#lock-screen{position:fixed;inset:0;z-index:9998;background:radial-gradient(ellipse 110% 75% at 0% 0%,#0f2547 0%,transparent 55%),radial-gradient(ellipse 110% 75% at 100% 100%,#0f2547 0%,transparent 55%),#000;display:none;flex-direction:column;align-items:center;justify-content:center;}
+#lock-screen.on{display:flex;}
+#lock-screen i{font-size:96px;color:#fff;opacity:.85;}
+
+#login{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:20px;background:radial-gradient(ellipse 110% 75% at 0% 0%,#0f2547 0%,transparent 55%),radial-gradient(ellipse 110% 75% at 100% 100%,#0f2547 0%,transparent 55%),#000;}
+.login-lock{font-size:64px;color:#fff;opacity:.85;margin-bottom:8px;}
+.login-card{width:100%;max-width:340px;display:flex;flex-direction:column;gap:12px;}
+.login-in{width:100%;height:46px;padding:0 14px;background:#000;border:1.5px solid var(--silver);border-radius:var(--r);color:#fff;font-size:15px;text-align:center;font-weight:600;outline:none;transition:.2s;}
 .login-in:focus{border-color:#fff;}
-.login-in::placeholder{letter-spacing:1px;font-size:13px;font-weight:500;color:rgba(255,255,255,.3);}
+.login-in::placeholder{font-size:13px;font-weight:500;color:rgba(255,255,255,.35);letter-spacing:.5px;}
+.login-in.code-in{letter-spacing:4px;font-weight:700;}
 .login-btn{width:100%;height:44px;border:1.5px solid var(--silver);border-radius:var(--r);background:transparent;color:#fff;font-size:13px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:.15s;}
 .login-btn:hover{background:rgba(255,255,255,.05);}
 .login-err{font-size:12px;color:#ff4d4d;font-weight:600;text-align:center;min-height:14px;}
 
-#app{display:none;flex:1;flex-direction:column;overflow:hidden;}
+#app{display:none;flex:1;flex-direction:column;overflow:hidden;position:relative;}
 #app.on{display:flex;}
-
-.app-hdr{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;}
+.app-hdr{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;background:#000;position:relative;z-index:5;}
 .app-hdr-title{font-size:14px;font-weight:700;}
 .app-hdr-name{font-size:11px;color:var(--silver);}
 
-.tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;}
-.tab{flex:1;height:40px;border:none;background:transparent;color:var(--dim);font-size:12px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:.15s;}
+.tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;background:#000;position:relative;z-index:5;}
+.tab{flex:1;height:40px;border:none;background:transparent;color:var(--dim);font-size:11px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:.15s;padding:0 6px;}
 .tab.on{color:#fff;border-bottom-color:#fff;}
 
-.chat-list{flex:1;overflow-y:auto;padding:8px;}
-.chat-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--r);cursor:pointer;transition:.12s;border:1px solid transparent;margin-bottom:4px;}
-.chat-item:hover{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06);}
-.chat-item.unread{background:rgba(26,79,214,.08);border-color:rgba(26,79,214,.2);}
+.chat-list{flex:1;overflow-y:auto;padding:8px;position:relative;z-index:5;background:#000;}
+.chat-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--r);border:1px solid rgba(255,255,255,.06);margin-bottom:6px;background:rgba(255,255,255,.02);}
 .chat-avatar{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--silver);flex-shrink:0;}
-.chat-info{flex:1;min-width:0;}
+.chat-info{flex:1;min-width:0;cursor:pointer;}
 .chat-name{font-size:13px;font-weight:700;color:#fff;}
 .chat-preview{font-size:11px;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px;}
 .chat-time{font-size:10px;color:rgba(255,255,255,.3);flex-shrink:0;}
-.chat-badge{width:8px;height:8px;border-radius:50%;background:#1a4fd6;flex-shrink:0;}
+.chat-take-btn{height:32px;padding:0 14px;border:1px solid rgba(192,200,216,.5);border-radius:8px;background:transparent;color:#fff;font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0;transition:.15s;}
+.chat-take-btn:hover{border-color:#fff;background:rgba(255,255,255,.05);}
+.chat-open-btn{width:32px;height:32px;border:none;background:transparent;color:var(--silver);cursor:pointer;flex-shrink:0;font-size:14px;}
+.chat-open-btn:hover{color:#fff;}
 
-.chat-view{display:none;flex:1;flex-direction:column;overflow:hidden;position:relative;}
+.chat-view{display:none;flex:1;flex-direction:column;overflow:hidden;position:relative;background:#000;}
 .chat-view.on{display:flex;}
-.chat-view-hdr{height:48px;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;}
+.chat-view-hdr{height:48px;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;position:relative;z-index:5;background:#000;}
 .chat-back{width:32px;height:32px;border-radius:8px;border:1px solid rgba(192,200,216,.3);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;}
 .chat-view-name{font-size:14px;font-weight:700;}
 .chat-msgs{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:8px;position:relative;}
-.msg{max-width:80%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;word-break:break-word;}
+
+.msg{max-width:80%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;word-break:break-word;position:relative;z-index:2;}
 .msg.user{align-self:flex-start;background:#000;border:1px solid rgba(192,200,216,.4);box-shadow:inset 0 0 14px rgba(192,200,216,.06);color:#fff;border-bottom-left-radius:4px;}
 .msg.agent{align-self:flex-end;background:#000;border:1px solid rgba(192,200,216,.4);box-shadow:inset 0 0 14px rgba(192,200,216,.06);color:#fff;border-bottom-right-radius:4px;}
+.msg.img-only{background:none !important;border:none !important;box-shadow:none !important;padding:4px 0;}
+.msg.deleted{opacity:.5;font-style:italic;}
 .msg-time{font-size:9px;color:rgba(255,255,255,.3);margin-top:4px;}
 .msg-img{max-width:200px;border-radius:10px;cursor:pointer;}
-.chat-input-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;}
-.chat-input{flex:1;height:40px;padding:0 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:20px;color:#fff;font-size:13px;outline:none;}
-.chat-input:focus{border-color:rgba(255,255,255,.2);}
+
+.chat-input-bar{display:flex;align-items:flex-end;gap:8px;padding:10px 14px;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;position:relative;z-index:5;background:#000;}
+.chat-input{flex:1;min-height:40px;max-height:120px;padding:10px 14px;background:#000;border:1px solid rgba(255,215,0,.5);box-shadow:inset 0 0 12px rgba(255,215,0,.06);border-radius:18px;color:#fff;font-size:13px;outline:none;font-family:'Inter',sans-serif;resize:none;line-height:20px;overflow-y:auto;}
+.chat-input:focus{border-color:rgba(255,215,0,.8);}
 .chat-input::placeholder{color:rgba(255,255,255,.3);}
-.chat-send{width:36px;height:36px;border-radius:50%;border:none;background:rgba(26,79,214,.5);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;}
-.chat-send:hover{background:rgba(26,79,214,.7);}
+.chat-send{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,215,0,.5);background:#000;box-shadow:inset 0 0 12px rgba(255,215,0,.1);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.chat-send:hover{border-color:rgba(255,215,0,.8);}
 
-.watermark{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;opacity:.04;}
-.watermark-text{position:absolute;font-size:28px;font-weight:900;color:#fff;white-space:nowrap;transform:rotate(-30deg);letter-spacing:6px;text-transform:uppercase;}
+.chat-watermark{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;opacity:.05;}
+.chat-watermark-text{position:absolute;font-size:32px;font-weight:900;color:#fff;white-space:nowrap;transform:rotate(-30deg);letter-spacing:6px;text-transform:uppercase;}
 
-.global-watermark{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;opacity:.03;}
-.global-watermark .watermark-text{position:absolute;font-size:28px;font-weight:900;color:#fff;white-space:nowrap;transform:rotate(-30deg);letter-spacing:6px;text-transform:uppercase;}
-#app{position:relative;z-index:1;}
-#login{position:relative;z-index:1;}
-.lock-screen{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
-.lock-screen i{font-size:48px;color:rgba(255,255,255,.3);}
+.modal-bg{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:20px;}
+.modal-bg.on{display:flex;}
+.modal{background:var(--card-bg);border:1.5px solid var(--silver);border-radius:14px;padding:20px;width:100%;max-width:400px;display:flex;flex-direction:column;gap:14px;}
+.modal-title{font-size:14px;font-weight:800;color:#fff;}
+.modal-ta{width:100%;min-height:80px;padding:12px;background:#000;border:1px solid rgba(192,200,216,.35);border-radius:8px;color:#fff;font-size:13px;outline:none;resize:vertical;font-family:'Inter',sans-serif;}
+.modal-ta:focus{border-color:var(--silver);}
+.modal-btns{display:flex;gap:8px;}
+.modal-btn{flex:1;height:40px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid;background:transparent;transition:.15s;}
+.modal-btn.confirm{border-color:var(--silver);color:#fff;}
+.modal-btn.confirm:hover{background:rgba(255,255,255,.05);}
+.modal-btn.cancel{border-color:rgba(255,255,255,.2);color:var(--dim);}
+.modal-btn.cancel:hover{background:rgba(255,255,255,.03);}
+.modal-btn.danger{border-color:#ff4d4d;color:#ff4d4d;}
+.modal-btn.danger:hover{background:rgba(255,77,77,.08);}
+
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;cursor:pointer;}
+.lightbox.on{display:flex;}
+.lightbox img{max-width:100%;max-height:100%;border-radius:8px;}
+
 .empty-msg{text-align:center;padding:40px 16px;color:var(--dim);font-size:12px;}
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--card-bg);border:1.5px solid var(--silver);color:#fff;padding:10px 18px;border-radius:var(--r);font-size:12px;font-weight:700;opacity:0;transition:.25s;z-index:9999;pointer-events:none;white-space:nowrap;}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--card-bg);border:1.5px solid var(--silver);color:#fff;padding:10px 18px;border-radius:var(--r);font-size:12px;font-weight:700;opacity:0;transition:.25s;z-index:99999;pointer-events:none;white-space:nowrap;}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
 
+<div id="lock-screen"><i class="fas fa-lock"></i></div>
+
 <div id="login">
-  <div class="login-title">SUPPORT PANEL</div>
-  
+  <i class="fas fa-lock login-lock"></i>
   <div class="login-card">
-    <input class="login-in" id="code-in" placeholder="Enter access code" maxlength="12" onkeydown="if(event.key==='Enter')doLogin()">
+    <div id="login-step1">
+      <input class="login-in" id="uname-in" placeholder="username" autocomplete="off" onkeydown="if(event.key==='Enter')step1Enter()">
+    </div>
+    <div id="login-step2" style="display:none;">
+      <input class="login-in code-in" id="code-in" placeholder="access code" maxlength="12" onkeydown="if(event.key==='Enter')step2Login()">
+    </div>
     <div class="login-err" id="login-err"></div>
-    <button class="login-btn" onclick="doLogin()">ENTER</button>
+    <button class="login-btn" id="login-btn" onclick="step1Enter()">Enter</button>
   </div>
 </div>
 
@@ -97,27 +129,53 @@ button,input,textarea{font-family:'Inter',sans-serif;}
     <div class="app-hdr-name" id="agent-name"></div>
   </div>
   <div class="tabs">
-    <button class="tab on" id="tab-unread" onclick="switchTab('unread')">Unread</button>
+    <button class="tab on" id="tab-all" onclick="switchTab('all')">All</button>
     <button class="tab" id="tab-unanswered" onclick="switchTab('unanswered')">Unanswered</button>
-    <button class="tab" id="tab-answered" onclick="switchTab('answered')">Answered</button>
+    <button class="tab" id="tab-taken" onclick="switchTab('taken')">Taken</button>
   </div>
   <div class="chat-list" id="chat-list"></div>
+
   <div class="chat-view" id="chat-view">
     <div class="chat-view-hdr">
       <button class="chat-back" onclick="closeChat()"><i class="fas fa-arrow-left"></i></button>
       <div class="chat-view-name" id="chat-view-name"></div>
     </div>
     <div class="chat-msgs" id="chat-msgs">
-      <div class="watermark" id="watermark"></div>
+      <div class="chat-watermark" id="chat-wm"></div>
     </div>
     <div class="chat-input-bar">
-      <input class="chat-input" id="chat-input" placeholder="Type a reply..." onkeydown="if(event.key==='Enter')sendReply()">
+      <textarea class="chat-input" id="chat-input" placeholder="Type a reply..." rows="1" oninput="autoResize(this)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendReply()}"></textarea>
       <button class="chat-send" onclick="sendReply()"><i class="fas fa-paper-plane"></i></button>
     </div>
   </div>
 </div>
 
-<div class="global-watermark" id="global-wm"></div>
+<div class="modal-bg" id="edit-modal-bg">
+  <div class="modal">
+    <div class="modal-title">Edit Message</div>
+    <textarea class="modal-ta" id="edit-modal-ta"></textarea>
+    <div class="modal-btns">
+      <button class="modal-btn cancel" onclick="closeEditModal()">Cancel</button>
+      <button class="modal-btn confirm" onclick="confirmEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="action-modal-bg">
+  <div class="modal">
+    <div class="modal-title">Message Actions</div>
+    <div class="modal-btns" style="flex-direction:column;">
+      <button class="modal-btn confirm" onclick="startEdit()"><i class="fas fa-pen"></i> Edit Message</button>
+      <button class="modal-btn danger" onclick="deleteMessage()"><i class="fas fa-trash"></i> Delete Message</button>
+      <button class="modal-btn cancel" onclick="closeActionModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <div id="toast"></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -133,39 +191,68 @@ firebase.initializeApp({
   appId:"1:263040168510:web:46517e20c66bacbfabd76f"
 });
 const db=firebase.database();
-let agentCode='';
-let agentName='';
-let currentChatKey=null;
-let currentTab='unread';
-let sessionStart=0;
 
-async function doLogin(){
+let agentCode='',agentName='',agentUsername='';
+let currentChatKey=null;
+let currentTab='all';
+let sessionStart=0;
+let pendingUsername='';
+let actionMsgKey=null;
+
+db.ref('support_config/locked').on('value',snap=>{
+  const locked=snap.exists()&&snap.val()===true;
+  const lockScreen=document.getElementById('lock-screen');
+  const login=document.getElementById('login');
+  const app=document.getElementById('app');
+  if(locked){
+    lockScreen.classList.add('on');
+    login.style.display='none';
+    app.classList.remove('on');
+  }else{
+    lockScreen.classList.remove('on');
+    if(!agentCode)login.style.display='flex';
+  }
+});
+
+async function step1Enter(){
+  const uname=(document.getElementById('uname-in').value||'').trim();
+  const err=document.getElementById('login-err');
+  err.textContent='';
+  if(!uname){err.textContent='Enter your username.';return;}
+  const snap=await db.ref('support_agents').orderByChild('username').equalTo(uname).get();
+  if(!snap.exists()){err.textContent='Username not found.';return;}
+  pendingUsername=uname;
+  document.getElementById('login-step1').style.display='none';
+  document.getElementById('login-step2').style.display='block';
+  document.getElementById('login-btn').textContent='Log in';
+  document.getElementById('login-btn').onclick=step2Login;
+  document.getElementById('code-in').focus();
+}
+
+async function step2Login(){
   const code=(document.getElementById('code-in').value||'').trim().toUpperCase();
   const err=document.getElementById('login-err');
   err.textContent='';
-  if(!code){err.textContent='Enter your access code.';return;}
-
-  const lockSnap=await db.ref('support_config/locked').get();
-  if(lockSnap.exists()&&lockSnap.val()===true){
-    document.getElementById('login').innerHTML='<div style="flex:1;display:flex;align-items:center;justify-content:center;"><i class="fas fa-lock" style="font-size:48px;color:rgba(255,255,255,.25);"></i></div>';
-    return;
+  if(!code){err.textContent='Enter access code.';return;}
+  const snap=await db.ref('support_agents').orderByChild('username').equalTo(pendingUsername).get();
+  if(!snap.exists()){err.textContent='Invalid.';return;}
+  const agents=snap.val();
+  let foundKey=null,foundAgent=null;
+  for(const k in agents){
+    if(agents[k].code===code&&!agents[k].codeUsed){
+      foundKey=k;foundAgent=agents[k];break;
+    }
   }
-
-  const snap=await db.ref('support_agents/'+code).get();
-  if(!snap.exists()){err.textContent='Invalid code.';return;}
-  const agent=snap.val();
-
-  await db.ref('support_agents/'+code+'/used').set(true);
-  await db.ref('support_agents/'+code+'/lastLogin').set(Date.now());
-
-  agentCode=code;
-  agentName=agent.name||'Agent';
+  if(!foundAgent){err.textContent='Invalid or used code.';return;}
+  await db.ref('support_agents/'+foundKey+'/codeUsed').set(true);
+  await db.ref('support_agents/'+foundKey+'/lastLogin').set(Date.now());
+  agentCode=foundKey;
+  agentName=foundAgent.name||foundAgent.username;
+  agentUsername=foundAgent.username;
   sessionStart=Date.now();
-
   document.getElementById('login').style.display='none';
   document.getElementById('app').classList.add('on');
-  document.getElementById('agent-name').textContent=agentName;
-  buildGlobalWatermark(agentName);
+  document.getElementById('agent-name').textContent=agentUsername;
   loadChats();
 }
 
@@ -185,16 +272,17 @@ function loadChats(){
     const entries=Object.entries(chats).map(([key,chat])=>{
       const last=chat.lastMsg||{};
       const info=chat.userInfo||{};
-      const hasUnread=last.from==='user'&&!last.read;
-      return {key,info,last,hasUnread};
+      const takenBy=chat.takenBy||null;
+      return {key,info,last,takenBy};
     }).sort((a,b)=>(b.last.ts||0)-(a.last.ts||0));
 
     let filtered;
-    if(currentTab==='unread')filtered=entries.filter(e=>e.hasUnread);
-    else if(currentTab==='unanswered')filtered=entries.filter(e=>!e.hasUnread&&e.last.from==='user');
-    else filtered=entries.filter(e=>!e.hasUnread&&e.last.from==='agent');
+    if(currentTab==='all')filtered=entries.filter(e=>!e.takenBy);
+    else if(currentTab==='unanswered')filtered=entries.filter(e=>e.takenBy===agentUsername&&e.last.from==='user');
+    else filtered=entries.filter(e=>e.takenBy===agentUsername&&e.last.from==='agent');
+
     if(!filtered.length){
-      list.innerHTML='<div class="empty-msg">No '+currentTab+' messages.</div>';
+      list.innerHTML='<div class="empty-msg">No messages here.</div>';
       return;
     }
 
@@ -204,11 +292,21 @@ function loadChats(){
       const preview=e.last.text||'';
       const d=new Date(e.last.ts||0);
       const time=d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
-      const cls=e.hasUnread?'chat-item unread':'chat-item';
-      const badge=e.hasUnread?'<div class="chat-badge"></div>':'';
-      return '<div class="'+cls+'" onclick="openChat(\''+e.key+'\')"><div class="chat-avatar">'+initials+'</div><div class="chat-info"><div class="chat-name">'+nm+'</div><div class="chat-preview">'+preview+'</div></div><div class="chat-time">'+time+'</div>'+badge+'</div>';
+      let action='';
+      if(currentTab==='all'){
+        action='<button class="chat-take-btn" onclick="takeChat(\''+e.key+'\')">Take</button>';
+      }else{
+        action='<button class="chat-open-btn" onclick="openChat(\''+e.key+'\')"><i class="fas fa-chevron-right"></i></button>';
+      }
+      return '<div class="chat-item"><div class="chat-avatar">'+initials+'</div><div class="chat-info" onclick="openChat(\''+e.key+'\')"><div class="chat-name">'+esc(nm)+'</div><div class="chat-preview">'+esc(preview)+'</div></div><div class="chat-time">'+time+'</div>'+action+'</div>';
     }).join('');
   });
+}
+
+async function takeChat(key){
+  await db.ref('support_chats/'+key+'/takenBy').set(agentUsername);
+  showToast('Chat taken.');
+  openChat(key);
 }
 
 function openChat(key){
@@ -222,36 +320,39 @@ function openChat(key){
     const info=snap.val()||{};
     const nm=info.name||info.email||key;
     document.getElementById('chat-view-name').textContent=nm;
-    buildWatermark(nm);
   });
 
-  db.ref('support_chats/'+key+'/lastMsg/read').set(true);
+  buildChatWatermark(agentUsername);
 
   db.ref('support_chats/'+key+'/messages').orderByChild('ts').on('value',snap=>{
     const msgs=document.getElementById('chat-msgs');
-    const wm=document.getElementById('watermark');
+    const wm=document.getElementById('chat-wm');
     msgs.innerHTML='';
     msgs.appendChild(wm);
     if(!snap.exists())return;
     const all=snap.val();
     Object.keys(all).sort((a,b)=>(all[a].ts||0)-(all[b].ts||0)).forEach(k=>{
       const m=all[k];
+      const isImg=!!m.imageUrl&&!m.text&&!m.deleted;
       const div=document.createElement('div');
-      div.className='msg '+(m.from==='user'?'user':'agent');
-      div.style.position='relative';
-      div.style.zIndex='2';
-      if(m.from==='agent'){
+      div.className='msg '+(m.from==='user'?'user':'agent')+(isImg?' img-only':'')+(m.deleted?' deleted':'');
+      if(m.from==='agent'&&!m.deleted){
         let _lp=null;
-        div.ontouchstart=function(){_lp=setTimeout(function(){editMessage(k);},600);};
+        div.ontouchstart=function(){_lp=setTimeout(function(){openActionModal(k);},500);};
         div.ontouchend=function(){clearTimeout(_lp);};
-        div.oncontextmenu=function(e){e.preventDefault();editMessage(k);};
+        div.oncontextmenu=function(e){e.preventDefault();openActionModal(k);};
       }
       let content='';
-      if(m.imageUrl)content+='<img class="msg-img" src="'+m.imageUrl+'" onclick="window.open(this.src)">';
-      if(m.text)content+='<div>'+(m.text||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</div>';
-      if(m.edited)content+='<div class="msg-time" style="font-style:italic;">edited</div>';
+      if(m.deleted){
+        content='<div><i class="fas fa-trash" style="opacity:.5;"></i> Deleted</div>';
+      }else{
+        if(m.imageUrl)content+='<img class="msg-img" src="'+m.imageUrl+'" onclick="event.stopPropagation();openLightbox(this.src)">';
+        if(m.text)content+='<div>'+esc(m.text)+'</div>';
+      }
       const d=new Date(m.ts||0);
-      content+='<div class="msg-time">'+d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')+'</div>';
+      content+='<div class="msg-time">'+d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
+      if(m.edited&&!m.deleted)content+=' · edited';
+      content+='</div>';
       div.innerHTML=content;
       msgs.appendChild(div);
     });
@@ -259,27 +360,13 @@ function openChat(key){
   });
 }
 
-function buildWatermark(name){
-  const wm=document.getElementById('watermark');
+function buildChatWatermark(name){
+  const wm=document.getElementById('chat-wm');
   wm.innerHTML='';
-  for(let y=-50;y<600;y+=120){
-    for(let x=-100;x<500;x+=280){
+  for(let y=-50;y<1500;y+=140){
+    for(let x=-200;x<800;x+=320){
       const span=document.createElement('div');
-      span.className='watermark-text';
-      span.style.top=y+'px';
-      span.style.left=x+'px';
-      span.textContent=name;
-      wm.appendChild(span);
-    }
-  }
-}
-function buildGlobalWatermark(name){
-  const wm=document.getElementById('global-wm');
-  wm.innerHTML='';
-  for(let y=-50;y<2000;y+=120){
-    for(let x=-200;x<800;x+=280){
-      const span=document.createElement('div');
-      span.className='watermark-text';
+      span.className='chat-watermark-text';
       span.style.top=y+'px';
       span.style.left=x+'px';
       span.textContent=name;
@@ -289,19 +376,21 @@ function buildGlobalWatermark(name){
 }
 
 function closeChat(){
-  if(currentChatKey){
-    db.ref('support_chats/'+currentChatKey+'/messages').off();
-  }
+  if(currentChatKey)db.ref('support_chats/'+currentChatKey+'/messages').off();
   currentChatKey=null;
   document.getElementById('chat-view').classList.remove('on');
   document.getElementById('chat-list').style.display='';
   document.querySelector('.tabs').style.display='';
-
   if(agentCode){
     const elapsed=Date.now()-sessionStart;
-    db.ref('support_agents/'+agentCode+'/totalTime').get().then(snap=>{
-      const old=snap.exists()?snap.val():0;
-      db.ref('support_agents/'+agentCode+'/totalTime').set(old+elapsed);
+    db.ref('support_agents/'+agentCode+'/totalTime').get().then(s=>{
+      db.ref('support_agents/'+agentCode+'/totalTime').set((s.exists()?s.val():0)+elapsed);
+    });
+    db.ref('support_agents/'+agentCode+'/dailyTime').get().then(s=>{
+      const today=new Date().toDateString();
+      const stored=s.exists()?s.val():{date:today,ms:0};
+      const ms=(stored.date===today?stored.ms:0)+elapsed;
+      db.ref('support_agents/'+agentCode+'/dailyTime').set({date:today,ms:ms});
     });
     sessionStart=Date.now();
   }
@@ -313,47 +402,81 @@ function sendReply(){
   const text=(inp.value||'').trim();
   if(!text)return;
   inp.value='';
+  inp.style.height='40px';
   const ref=db.ref('support_chats/'+currentChatKey+'/messages').push();
-  ref.set({text:text,from:'agent',agentName:agentName,ts:Date.now(),read:true});
-  db.ref('support_chats/'+currentChatKey+'/lastMsg').set({text:text,from:'agent',ts:Date.now(),read:true});
+  ref.set({text:text,from:'agent',agentName:agentUsername,ts:Date.now()});
+  db.ref('support_chats/'+currentChatKey+'/lastMsg').set({text:text,from:'agent',ts:Date.now()});
+  db.ref('support_chats/'+currentChatKey+'/takenBy').set(agentUsername);
   if(agentCode){
-    db.ref('support_agents/'+agentCode+'/totalMessages').get().then(snap=>{
-      db.ref('support_agents/'+agentCode+'/totalMessages').set((snap.exists()?snap.val():0)+1);
+    db.ref('support_agents/'+agentCode+'/totalMessages').get().then(s=>{
+      db.ref('support_agents/'+agentCode+'/totalMessages').set((s.exists()?s.val():0)+1);
     });
   }
 }
 
-function editMessage(msgKey){
-  if(!currentChatKey)return;
-  db.ref('support_chats/'+currentChatKey+'/messages/'+msgKey).once('value').then(snap=>{
-    if(!snap.exists())return;
-    const m=snap.val();
-    if(m.from!=='agent')return;
-    const newText=prompt('Edit message:',m.text||'');
-    if(newText===null||newText===m.text)return;
-    db.ref('support_chats/'+currentChatKey+'/messages/'+msgKey).update({
-      text:newText,
-      edited:true,
-      editedAt:Date.now()
-    });
-    if(agentCode){
-      db.ref('support_agents/'+agentCode+'/totalEdits').get().then(s=>{
-        db.ref('support_agents/'+agentCode+'/totalEdits').set((s.exists()?s.val():0)+1);
-      });
-    }
-  });
+function autoResize(el){
+  el.style.height='auto';
+  el.style.height=Math.min(el.scrollHeight,120)+'px';
 }
 
+function openActionModal(msgKey){
+  actionMsgKey=msgKey;
+  document.getElementById('action-modal-bg').classList.add('on');
+}
+function closeActionModal(){document.getElementById('action-modal-bg').classList.remove('on');}
+
+function startEdit(){
+  closeActionModal();
+  if(!currentChatKey||!actionMsgKey)return;
+  db.ref('support_chats/'+currentChatKey+'/messages/'+actionMsgKey).once('value').then(snap=>{
+    if(!snap.exists())return;
+    document.getElementById('edit-modal-ta').value=snap.val().text||'';
+    document.getElementById('edit-modal-bg').classList.add('on');
+  });
+}
+function closeEditModal(){document.getElementById('edit-modal-bg').classList.remove('on');}
+function confirmEdit(){
+  if(!currentChatKey||!actionMsgKey)return;
+  const newText=(document.getElementById('edit-modal-ta').value||'').trim();
+  if(!newText){closeEditModal();return;}
+  db.ref('support_chats/'+currentChatKey+'/messages/'+actionMsgKey).update({
+    text:newText,edited:true,editedAt:Date.now()
+  });
+  if(agentCode){
+    db.ref('support_agents/'+agentCode+'/totalEdits').get().then(s=>{
+      db.ref('support_agents/'+agentCode+'/totalEdits').set((s.exists()?s.val():0)+1);
+    });
+  }
+  closeEditModal();
+}
+
+function deleteMessage(){
+  closeActionModal();
+  if(!currentChatKey||!actionMsgKey)return;
+  db.ref('support_chats/'+currentChatKey+'/messages/'+actionMsgKey).update({
+    deleted:true,deletedAt:Date.now()
+  });
+  if(agentCode){
+    db.ref('support_agents/'+agentCode+'/totalDeletes').get().then(s=>{
+      db.ref('support_agents/'+agentCode+'/totalDeletes').set((s.exists()?s.val():0)+1);
+    });
+  }
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src=src;
+  document.getElementById('lightbox').classList.add('on');
+}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('on');}
+
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 let _tt=null;
 function showToast(msg){
   const el=document.getElementById('toast');
-  el.textContent=msg;
-  el.className='on';
+  el.textContent=msg;el.className='on';
   if(_tt)clearTimeout(_tt);
   _tt=setTimeout(()=>{el.className='';},2600);
 }
-
-document.getElementById('code-in').focus();
 </script>
 </body>
 </html>
